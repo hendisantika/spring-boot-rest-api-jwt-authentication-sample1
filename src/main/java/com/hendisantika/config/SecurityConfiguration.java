@@ -1,5 +1,6 @@
 package com.hendisantika.config;
 
+import com.hendisantika.filter.JWTAuthenticationFilter;
 import com.hendisantika.service.AuthenticationUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
