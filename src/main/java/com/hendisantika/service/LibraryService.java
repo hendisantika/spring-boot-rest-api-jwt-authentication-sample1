@@ -1,11 +1,14 @@
 package com.hendisantika.service;
 
+import com.hendisantika.model.Author;
 import com.hendisantika.model.Book;
 import com.hendisantika.repository.AuthorRepository;
 import com.hendisantika.repository.BookRepository;
 import com.hendisantika.repository.LendRepository;
 import com.hendisantika.repository.MemberRepository;
+import com.hendisantika.request.BookCreationRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -49,5 +52,16 @@ public class LibraryService {
             return book.get();
         }
         throw new EntityNotFoundException("Cant find any book under given ISBN");
+    }
+
+    public Book createBook(BookCreationRequest book) {
+        Optional<Author> author = authorRepository.findById(book.getAuthorId());
+        if (!author.isPresent()) {
+            throw new EntityNotFoundException("Author Not Found");
+        }
+        Book bookToCreate = new Book();
+        BeanUtils.copyProperties(book, bookToCreate);
+        bookToCreate.setAuthor(author.get());
+        return bookRepository.save(bookToCreate);
     }
 }
