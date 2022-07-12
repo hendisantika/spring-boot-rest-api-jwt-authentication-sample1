@@ -1,6 +1,8 @@
 package com.hendisantika.controller;
 
+import com.hendisantika.model.Author;
 import com.hendisantika.model.Book;
+import com.hendisantika.request.AuthorCreationRequest;
 import com.hendisantika.request.BookCreationRequest;
 import com.hendisantika.service.LibraryService;
 import lombok.RequiredArgsConstructor;
@@ -48,5 +50,10 @@ public class LibraryController {
     @PostMapping("/book")
     public ResponseEntity<Book> createBook(@RequestBody BookCreationRequest request) {
         return ResponseEntity.ok(libraryService.createBook(request));
+    }
+
+    @PostMapping("/author")
+    public ResponseEntity<Author> createAuthor(@RequestBody AuthorCreationRequest request) {
+        return ResponseEntity.ok(libraryService.createAuthor(request));
     }
 }
