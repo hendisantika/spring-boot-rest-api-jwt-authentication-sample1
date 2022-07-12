@@ -8,6 +8,7 @@ import com.hendisantika.repository.AuthorRepository;
 import com.hendisantika.repository.BookRepository;
 import com.hendisantika.repository.LendRepository;
 import com.hendisantika.repository.MemberRepository;
+import com.hendisantika.request.AuthorCreationRequest;
 import com.hendisantika.request.BookCreationRequest;
 import com.hendisantika.request.MemberCreationRequest;
 import lombok.RequiredArgsConstructor;
@@ -88,6 +89,12 @@ public class LibraryService {
         member.setLastName(request.getLastName());
         member.setFirstName(request.getFirstName());
         return memberRepository.save(member);
+    }
+
+    public Author createAuthor(AuthorCreationRequest request) {
+        Author author = new Author();
+        BeanUtils.copyProperties(request, author);
+        return authorRepository.save(author);
     }
 
 }
