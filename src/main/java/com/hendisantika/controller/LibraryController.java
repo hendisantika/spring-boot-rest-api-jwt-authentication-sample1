@@ -2,8 +2,10 @@ package com.hendisantika.controller;
 
 import com.hendisantika.model.Author;
 import com.hendisantika.model.Book;
+import com.hendisantika.model.Member;
 import com.hendisantika.request.AuthorCreationRequest;
 import com.hendisantika.request.BookCreationRequest;
+import com.hendisantika.request.MemberCreationRequest;
 import com.hendisantika.service.LibraryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -62,5 +64,10 @@ public class LibraryController {
     public ResponseEntity<Void> deleteBook(@PathVariable Long bookId) {
         libraryService.deleteBook(bookId);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/member")
+    public ResponseEntity<Member> createMember(@RequestBody MemberCreationRequest request) {
+        return ResponseEntity.ok(libraryService.createMember(request));
     }
 }
