@@ -80,3 +80,48 @@ So our main API endpoints will be as follows:
 | /api/library/book/lend    | POST    | Lend a book to a member                                      |
 | /api/library/member    | POST    | Register member                                              |
 | /api/library/member/:id    | PATCH    | Update a member                                              |
+
+and the base architecture will be like below:
+
+![Flow](img/flow.png "Flow")
+
+### Testing API with JWT Authentication
+
+First let’s start with creating a API user with password who is allowed to generate JWT token to access other API
+endpoints.
+
+```json
+curl --location --request POST 'http://localhost:8080/api/user' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username":"naruto",
+    "password": "naruto"
+}'
+```
+
+Now we have a user with the correct credentials in our database. Then we can generate an authentication token using
+those credentials as below.
+
+```json
+curl -i --location --request POST 'http://localhost:8080/login' --header 'Content-Type: application/json' --data-raw '{
+    "username": "naruto",
+    "password": "naruto"
+}'
+```
+
+Sending API request with authentication token we got from JWT authentication. Here we just needs to add authentication
+token with the token prefix which is Bearer here as an Authorization header and send the request.
+
+```json
+curl --location --request POST 'http://localhost:8080/api/library/author' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdGRfYXBpX3VzZXIiLCJleHAiOjE2MDY1MDE4MjJ9.2TBlaqqmXcXUEIU97c1VuRwmJJphZTIAcOd9u6YLYSw8cBFTdJkyYGcwKOrre9TaG-0_E1kY_vqJasPCDiQTIg' \
+--data-raw '{
+    "firstName": "Uzumaki",
+    "lastName": "Naruto"
+}'
+```
+
+
+
+
