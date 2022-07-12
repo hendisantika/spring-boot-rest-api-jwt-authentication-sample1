@@ -122,6 +122,16 @@ curl --location --request POST 'http://localhost:8080/api/library/author' \
 }'
 ```
 
+```json
+curl --location --request POST 'http://localhost:8080/api/user' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username":"naruto",
+    "password": "naruto",
+    "role": "ADMIN"
+}'
+```
+
 
 
 
