@@ -1,5 +1,8 @@
 package com.hendisantika.filter;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.hendisantika.config.AuthenticationConfigConstants;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -43,4 +46,22 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         chain.doFilter(request, response);
     }
 
+    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+        String token = request.getHeader(AuthenticationConfigConstants.HEADER_STRING);
+        if (token != null) {
+            // parse the token.
+            DecodedJWT verify = JWT.require(Algorithm.HMAC512(AuthenticationConfigConstants.SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(AuthenticationConfigConstants.TOKEN_PREFIX, ""));
+
+            String username = verify.getSubject();
+            String role = verify.getClaim("role").asString();
+
+            if (username != null) {
+                return new UsernamePasswordAuthenticationToken(username, null, getAuthorities(role));
+            }
+            return null;
+        }
+        return null;
+    }
 }
