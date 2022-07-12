@@ -36,3 +36,47 @@ Main topics I’m going to discuss here,
     - Conclusion
 
 </p>
+
+### What is JWT ?
+
+JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely
+transmitting information between parties as a JSON object. This information can be verified and trusted because it is
+digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or
+ECDSA. – Definition from JWT.io
+
+Basically, JWT allows us to digitally signed a way of transmitting information between parties and when tokens are
+signed using public/private key pairs, the signature also certifies that only the party holding the private key is the
+one that signed it. So no one can breach into the claims without the private key.
+
+Follow official documentation for more details about JWT from [here](https://jwt.io/introduction/).
+
+### How Does JWT Based Authentication work with Spring Boot?
+
+Here is the sequence diagram for how JWT in action inside Spring Boot application with Spring security.
+
+![JWT Work](img/jwt.png "JWT Work")
+
+### Defining API Endpoints
+
+This API is design to demonstrate a simple API that covers CRUD Operations in a library scenario where books and author
+data are stored and members can burrow any book if it is available.
+
+Additionally, Here we need two additional APIs to accomplish our authentication layer interagration.
+
+Those are API endpoints to Register new API consume user and endpoint to Login and retrieve JWT for successful
+authentication.
+
+So our main API endpoints will be as follows:
+
+| Endpoint    | HTTP Method    | Description                                                  |
+| --- | --- |--------------------------------------------------------------|
+| /api/user    | POST    | Create user to consume API.                                  |
+| /login    | POST    | Request JWT token with Login request using auth credentials. |
+| /api/library/book    | GET    | Read all books from database.                                |
+| /api/library/book?isbn=1919    | GET    | Read book by ISBN                                            |
+| /api/library/book/:id    | GET    | Read book by ID                                              |
+| /api/library/book    | POST    | Register New Book                                            |
+| /api/library/book/:id    | DELETE    | Remove a book                                                |
+| /api/library/book/lend    | POST    | Lend a book to a member                                      |
+| /api/library/member    | POST    | Register member                                              |
+| /api/library/member/:id    | PATCH    | Update a member                                              |
