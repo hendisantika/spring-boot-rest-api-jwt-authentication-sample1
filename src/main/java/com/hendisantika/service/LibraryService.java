@@ -64,4 +64,8 @@ public class LibraryService {
         bookToCreate.setAuthor(author.get());
         return bookRepository.save(bookToCreate);
     }
+
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
+    }
 }
