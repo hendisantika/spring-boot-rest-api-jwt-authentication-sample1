@@ -1,5 +1,6 @@
 package com.hendisantika.service;
 
+import com.hendisantika.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,7 +30,7 @@ public class AuthenticationUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        ApiUser apiUser = userService.readUserByUsername(username);
+        User apiUser = userService.readUserByUsername(username);
         if (apiUser == null) {
             throw new UsernameNotFoundException(username);
         }
