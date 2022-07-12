@@ -79,4 +79,15 @@ public class LibraryService {
         return memberRepository.save(member);
     }
 
+    public Member updateMember(Long id, MemberCreationRequest request) {
+        Optional<Member> optionalMember = memberRepository.findById(id);
+        if (!optionalMember.isPresent()) {
+            throw new EntityNotFoundException("Member not present in the database");
+        }
+        Member member = optionalMember.get();
+        member.setLastName(request.getLastName());
+        member.setFirstName(request.getFirstName());
+        return memberRepository.save(member);
+    }
+
 }
