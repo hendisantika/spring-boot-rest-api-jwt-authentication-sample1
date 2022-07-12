@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -36,5 +37,9 @@ public class LibraryService {
             return book.get();
         }
         throw new EntityNotFoundException("Cant find any book under given ID");
+    }
+
+    public List<Book> readBooks() {
+        return bookRepository.findAll();
     }
 }
