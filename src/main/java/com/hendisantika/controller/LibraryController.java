@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,4 +71,10 @@ public class LibraryController {
     public ResponseEntity<Member> createMember(@RequestBody MemberCreationRequest request) {
         return ResponseEntity.ok(libraryService.createMember(request));
     }
+
+    @PatchMapping("/member/{memberId}")
+    public ResponseEntity<Member> updateMember(@RequestBody MemberCreationRequest request, @PathVariable Long memberId) {
+        return ResponseEntity.ok(libraryService.updateMember(memberId, request));
+    }
+
 }
