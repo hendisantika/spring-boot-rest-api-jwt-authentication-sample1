@@ -92,4 +92,11 @@ public class LibraryController {
         log.info("Status Incoming {}", isbn);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping(value = "/findByStat")
+    public ResponseEntity<Void> findByStatuses(@RequestParam(required = false) String isbn) {
+        log.info("Status Incoming {}", isbn);
+        return ResponseEntity.ok().build();
+    }
+
 }
