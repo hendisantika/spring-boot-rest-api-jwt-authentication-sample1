@@ -1,11 +1,15 @@
 package com.hendisantika.service;
 
+import com.hendisantika.model.Book;
 import com.hendisantika.repository.AuthorRepository;
 import com.hendisantika.repository.BookRepository;
 import com.hendisantika.repository.LendRepository;
 import com.hendisantika.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,4 +29,12 @@ public class LibraryService {
     private final MemberRepository memberRepository;
     private final LendRepository lendRepository;
     private final BookRepository bookRepository;
+
+    public Book readBook(Long id) {
+        Optional<Book> book = bookRepository.findById(id);
+        if (book.isPresent()) {
+            return book.get();
+        }
+        throw new EntityNotFoundException("Cant find any book under given ID");
+    }
 }
