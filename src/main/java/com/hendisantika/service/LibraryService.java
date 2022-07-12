@@ -2,11 +2,14 @@ package com.hendisantika.service;
 
 import com.hendisantika.model.Author;
 import com.hendisantika.model.Book;
+import com.hendisantika.model.Member;
+import com.hendisantika.model.MemberStatus;
 import com.hendisantika.repository.AuthorRepository;
 import com.hendisantika.repository.BookRepository;
 import com.hendisantika.repository.LendRepository;
 import com.hendisantika.repository.MemberRepository;
 import com.hendisantika.request.BookCreationRequest;
+import com.hendisantika.request.MemberCreationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -68,4 +71,12 @@ public class LibraryService {
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
     }
+
+    public Member createMember(MemberCreationRequest request) {
+        Member member = new Member();
+        BeanUtils.copyProperties(request, member);
+        member.setStatus(MemberStatus.ACTIVE);
+        return memberRepository.save(member);
+    }
+
 }
