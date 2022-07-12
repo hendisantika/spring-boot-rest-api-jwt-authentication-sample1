@@ -5,6 +5,7 @@ import com.hendisantika.model.Book;
 import com.hendisantika.model.Member;
 import com.hendisantika.request.AuthorCreationRequest;
 import com.hendisantika.request.BookCreationRequest;
+import com.hendisantika.request.BookLendRequest;
 import com.hendisantika.request.MemberCreationRequest;
 import com.hendisantika.service.LibraryService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -77,4 +80,8 @@ public class LibraryController {
         return ResponseEntity.ok(libraryService.updateMember(memberId, request));
     }
 
+    @PostMapping("/book/lend")
+    public ResponseEntity<List<String>> lendABook(@RequestBody BookLendRequest bookLendRequests) {
+        return ResponseEntity.ok(libraryService.lendABook(bookLendRequests));
+    }
 }
