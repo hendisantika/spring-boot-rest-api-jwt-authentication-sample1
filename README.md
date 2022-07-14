@@ -68,18 +68,19 @@ authentication.
 
 So our main API endpoints will be as follows:
 
-| Endpoint    | HTTP Method    | Description                                                  |
-| --- | --- |--------------------------------------------------------------|
-| /api/user    | POST    | Create user to consume API.                                  |
-| /login    | POST    | Request JWT token with Login request using auth credentials. |
-| /api/library/book    | GET    | Read all books from database.                                |
-| /api/library/book?isbn=1919    | GET    | Read book by ISBN                                            |
-| /api/library/book/:id    | GET    | Read book by ID                                              |
-| /api/library/book    | POST    | Register New Book                                            |
-| /api/library/book/:id    | DELETE    | Remove a book                                                |
-| /api/library/book/lend    | POST    | Lend a book to a member                                      |
-| /api/library/member    | POST    | Register member                                              |
-| /api/library/member/:id    | PATCH    | Update a member                                              |
+| Endpoint    | HTTP Method | Description                                                  |
+| --- |-------------|--------------------------------------------------------------|
+| /api/user    | POST        | Create user to consume API.                                  |
+| /login    | POST        | Request JWT token with Login request using auth credentials. |
+| /api/library/author    | POST        | Register New Author.                                         |
+| /api/library/book    | GET         | Read all books from database.                                |
+| /api/library/book?isbn=1919    | GET         | Read book by ISBN                                            |
+| /api/library/book/:id    | GET         | Read book by ID                                              |
+| /api/library/book    | POST        | Register New Book                                            |
+| /api/library/book/:id    | DELETE      | Remove a book                                                |
+| /api/library/book/lend    | POST        | Lend a book to a member                                      |
+| /api/library/member    | POST        | Register member                                              |
+| /api/library/member/:id    | PATCH       | Update a member                                              |
 
 and the base architecture will be like below:
 
@@ -157,6 +158,69 @@ curl --location --request POST 'http://localhost:8080/login' \
 }'
 ```
 
+Register New Author
 
+```shell
+curl --location --request POST 'http://localhost:8080/api/library/author' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXJ1dG8iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE2NTg2MjMyOTB9.XVUHB5kbzMPJdG6_jMnHgOP1-PzEquzuN3HoxqJ3xkaFvHgVmWzY57X_8uLKr9gsLEZo-b3nH2nrICs_2JGNQw' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "firstName": "Hendi",
+    "lastName": "Santika"
+}'
+```
 
+Register New Book
 
+```shell
+curl --location --request POST 'http://localhost:8080/api/library/book' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXJ1dG8iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE2NTg2MjMyOTB9.XVUHB5kbzMPJdG6_jMnHgOP1-PzEquzuN3HoxqJ3xkaFvHgVmWzY57X_8uLKr9gsLEZo-b3nH2nrICs_2JGNQw' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Mudah belajar Spring Boot2",
+    "isbn": "1234",
+    "authorId": 1
+}'
+```
+
+Read all books from database
+
+```shell
+curl --location --request GET 'http://localhost:8080/api/library/book' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXJ1dG8iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE2NTg2MjMyOTB9.XVUHB5kbzMPJdG6_jMnHgOP1-PzEquzuN3HoxqJ3xkaFvHgVmWzY57X_8uLKr9gsLEZo-b3nH2nrICs_2JGNQw' \
+
+```
+
+Read book by ISBN
+
+```shell
+curl --location --request GET 'http://localhost:8080/api/library/book?isbn=1234567890' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXJ1dG8iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE2NTg2MjMyOTB9.XVUHB5kbzMPJdG6_jMnHgOP1-PzEquzuN3HoxqJ3xkaFvHgVmWzY57X_8uLKr9gsLEZo-b3nH2nrICs_2JGNQw' \
+```
+
+Read book by ID
+
+```shell
+curl --location --request GET 'http://localhost:8080/api/library/book/1' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXJ1dG8iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE2NTg2MjMyOTB9.XVUHB5kbzMPJdG6_jMnHgOP1-PzEquzuN3HoxqJ3xkaFvHgVmWzY57X_8uLKr9gsLEZo-b3nH2nrICs_2JGNQw' \
+```
+
+Remove a book
+
+```shell
+curl --location --request DELETE 'http://localhost:8080/api/library/book/3' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXJ1dG8iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE2NTg2MjMyOTB9.XVUHB5kbzMPJdG6_jMnHgOP1-PzEquzuN3HoxqJ3xkaFvHgVmWzY57X_8uLKr9gsLEZo-b3nH2nrICs_2JGNQw' \
+
+```
+
+Lend a book to a member
+
+```shell
+curl --location --request POST 'http://localhost:8080/api/library/book/lend' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXJ1dG8iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE2NTg2MjMyOTB9.XVUHB5kbzMPJdG6_jMnHgOP1-PzEquzuN3HoxqJ3xkaFvHgVmWzY57X_8uLKr9gsLEZo-b3nH2nrICs_2JGNQw' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "bookIds": [1],
+    "memberId": 1
+}'
+```
