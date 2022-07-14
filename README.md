@@ -132,6 +132,31 @@ curl --location --request POST 'http://localhost:8080/api/user' \
 }'
 ```
 
+All cURL
+Add New User
+
+```shell
+curl --location --request POST 'http://localhost:8080/api/user' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username":"sasuke",
+    "password": "sauke",
+    "role": "ADMIN"
+}'
+```
+
+User Login
+
+```shell
+curl --location --request POST 'http://localhost:8080/login' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXJ1dG8iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE2NTg2MjMyOTB9.XVUHB5kbzMPJdG6_jMnHgOP1-PzEquzuN3HoxqJ3xkaFvHgVmWzY57X_8uLKr9gsLEZo-b3nH2nrICs_2JGNQw' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username": "naruto",
+    "password": "naruto"
+}'
+```
+
 
 
 
