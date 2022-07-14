@@ -86,6 +86,10 @@ public class LibraryService {
         return memberRepository.save(member);
     }
 
+    public List<Member> listMembers() {
+        return memberRepository.findAll();
+    }
+
     public Member updateMember(Long id, MemberCreationRequest request) {
         Optional<Member> optionalMember = memberRepository.findById(id);
         if (!optionalMember.isPresent()) {

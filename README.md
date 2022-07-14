@@ -80,6 +80,7 @@ So our main API endpoints will be as follows:
 | /api/library/book/:id    | DELETE      | Remove a book                                                |
 | /api/library/book/lend    | POST        | Lend a book to a member                                      |
 | /api/library/member    | POST        | Register member                                              |
+| /api/library/member    | GET         | List all members                                             |
 | /api/library/member/:id    | PATCH       | Update a member                                              |
 
 and the base architecture will be like below:
@@ -133,7 +134,7 @@ curl --location --request POST 'http://localhost:8080/api/user' \
 }'
 ```
 
-All cURL
+### All cURL
 Add New User
 
 ```shell
@@ -222,5 +223,24 @@ curl --location --request POST 'http://localhost:8080/api/library/book/lend' \
 --data-raw '{
     "bookIds": [1],
     "memberId": 1
+}'
+```
+
+List All members
+
+```shell
+curl --location --request GET 'http://localhost:8080/api/library/member' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXJ1dG8iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE2NTg2MjMyOTB9.XVUHB5kbzMPJdG6_jMnHgOP1-PzEquzuN3HoxqJ3xkaFvHgVmWzY57X_8uLKr9gsLEZo-b3nH2nrICs_2JGNQw' \
+```
+
+Update a member
+
+```shell
+curl --location --request PATCH 'http://localhost:8080/api/library/member/3' \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXJ1dG8iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE2NTg2MjMyOTB9.XVUHB5kbzMPJdG6_jMnHgOP1-PzEquzuN3HoxqJ3xkaFvHgVmWzY57X_8uLKr9gsLEZo-b3nH2nrICs_2JGNQw' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "firstName": "Uchiha",
+    "lastName": "Madara"
 }'
 ```

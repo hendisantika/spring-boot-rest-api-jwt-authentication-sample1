@@ -77,6 +77,11 @@ public class LibraryController {
         return ResponseEntity.ok(libraryService.createMember(request));
     }
 
+    @GetMapping("/member")
+    public ResponseEntity<List<Member>> listMember() {
+        return ResponseEntity.ok(libraryService.listMembers());
+    }
+
     @PatchMapping("/member/{memberId}")
     public ResponseEntity<Member> updateMember(@RequestBody MemberCreationRequest request, @PathVariable Long memberId) {
         return ResponseEntity.ok(libraryService.updateMember(memberId, request));
